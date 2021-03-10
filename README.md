@@ -52,7 +52,7 @@ And then
 Hash::make('yourpassword')
 ```
 
-Copy to the password field into users table.
+Copy to the password field inside users table.
 
 
 Thank you.

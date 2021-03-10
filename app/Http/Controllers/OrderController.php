@@ -15,11 +15,13 @@ class OrderController extends Controller
         $products = Product::all();
         $mvpToday = $this->Order->mostValueProductToday();
         $mvpOneWeek = $this->Order->mostValueProductPerSevenDays();
-
+        $mvpYesterday = $this->Order->mvpYesterday($mvpToday->id);
+        // dd($mvpYesterday);
         return view('orders.index', [
             'products' => $products,
             'mvpToday' => $mvpToday,
-            'mvpOneWeek' => $mvpOneWeek
+            'mvpOneWeek' => $mvpOneWeek,
+            'mvpYesterday' => $mvpYesterday
         ]);
     }
 

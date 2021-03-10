@@ -80,11 +80,40 @@
           </tr>
           <tr>
             <td>Sales</td>
-            <td>{{ $mvpToday->total }}</td>
+            <td>
+              {{ $mvpToday->total }}
+              @if(empty($mvpYesterday) || $mvpYesterday === null || $mvpYesterday === 0)
+                (+100%)
+              @else
+                @php
+                  $total = $mvpToday->total - $mvpYesterday->total;
+                  $sign = '';
+                  if ($total < 0) $sign = '-';
+                  else $sign = '+';
+
+                  if ($sign === '+') echo '('.$sign . ($mvpToday->total - $mvpYesterday->total) / $mvpYesterday->total . '%)';
+                  else echo '('.$sign . ($mvpYesterday->total - $mvpToday->total) / $mvpToday->total . '%)';
+                @endphp
+              @endif
+            </td>
           </tr>
           <tr>
             <td>Total Sales</td>
-            <td>{{ $mvpToday->total * $mvpToday->price }}</td>
+            <td>
+              {{ $mvpToday->total * $mvpToday->price }}
+              @if(empty($mvpYesterday) || $mvpYesterday === null || $mvpYesterday === 0)
+                (+100%)
+              @else
+                @php
+                  $total = ($mvpToday->total * $mvpToday->price) - ($mvpYesterday->total * $mvpYesterday->price);
+                  $sign = '';
+                  if ($total < 0) $sign = '-';
+                  else $sign = '+';
+                  if ($sign === '+') echo '('. $sign . (($mvpToday->total * $mvpToday->price) - ($mvpYesterday->total * $mvpYesterday->price)) / ($mvpYesterday->total * $mvpYesterday->price) .'%)';
+                  else echo '('. $sign . (($mvpYesterday->total * $mvpYesterday->price) - ($mvpToday->total * $mvpToday->price)) / ($mvpToday->total * $mvpToday->price).'%)';
+                @endphp
+              @endif
+            </td>
           </tr>
         </tbody>
       </table>

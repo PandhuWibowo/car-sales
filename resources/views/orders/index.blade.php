@@ -9,6 +9,10 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
+  @if(Session::has('LoggedUser'))
+  @else
+    <script>window.location = "/signin";</script>
+  @endif
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Cars</a>
@@ -20,6 +24,9 @@
           <a class="nav-link" href="{{ url('/products') }}">Master Product</a>
           <a class="nav-link active" aria-current="page" href="{{ url('/orders') }}">Orders</a>
         </div>
+      </div>
+      <div class="d-flex">
+        <a href="{{ route('signout') }}" class="btn btn-outline-success">Sign Out</a>
       </div>
     </div>
   </nav>

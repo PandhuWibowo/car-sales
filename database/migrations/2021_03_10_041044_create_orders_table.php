@@ -16,10 +16,10 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('buyers_name', 50);
-            $table->string('email', 50)->unique();
+            $table->string('email', 50);
             $table->string('phone', 16);
+            $table->timestamps();
             $table->uuid('product_id');
-
             $table->foreign('product_id')->references('id')->on('products');
         });
     }
